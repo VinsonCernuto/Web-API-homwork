@@ -9,7 +9,7 @@ var resultsEl = document.querySelector(".results");
 // - create h3 to show instrustions text and questions
 var mainDisplay = document.createElement("h3");
 // - Create button to start quiz
-var startBtn = document.createElement("button");
+var startBtn = document.createElement("button")
 
 // Declare global variables
 // - varible to store timer number
@@ -25,14 +25,14 @@ var index = 0;
 // function that handles and display the next question
 //funstion to check the answer and display to following question
 
-// function that loads content when the page forst loads 
+// function that loads content when the page first loads 
 function openingPage() {
     // add text to h3 element
-    mainDisplay.textContent = "Try to answer the following code-related questions within the time limit. Keep in mid that incorrect answers will penalize your score/time by ten seconds!"
+    mainDisplay.textContent = "Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!"
     // add text to button
-    startBtn.textContent = "Start!"
+    startBtn.textContent = "Start"
     // Apend text and button to question container
-    displayQuestionEL.append(mainDisplay, startBtn);
+    displayQuestionEL.append(mainDisplay, startBtn)
 }
 
 
@@ -48,9 +48,8 @@ function startQuiz() {
 function showTimer(){
     // display timer to screen
     timerEl.textContent = timer;
-
     // create setInterval and store it to a variable
-    var questionTimer= setInterval(function(){
+    var questionTimer= setInterval(function () {
         // decrease timer by 1
         timer--
         // display timer to screen 
@@ -91,7 +90,7 @@ function nextQuestion() {
     }
 
     // - append buttons to div elements to the question container element
-    displayQuestionEL.append(chiocesContainer);
+    displayQuestionEL.append(chiocesContainer)
 }
 
 // function to check the answer and display to following question
