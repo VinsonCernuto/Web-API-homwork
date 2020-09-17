@@ -81,11 +81,11 @@ function nextQuestion() {
         // - create button elements for each choice
         var choiceBtn = document.createElement("button"); 
         // - add text to each button from the question choices
-        choiceBtn.textContent = currentQuestion,choices[i];
+        choiceBtn.textContent = currentQuestion.choices[i];
         // - add a click event listener to button to check answers 
         choiceBtn.addEventListener("click", checkAnswer);
         // - append buttons to div elements to the question container element
-        chiocesContainer.append  (choiceBtn);
+        chiocesContainer.append(choiceBtn)
 
     }
 
@@ -101,8 +101,17 @@ function checkAnswer(event) {
     console.log(responseText);
 
     if (responseText === questions[index].answer) {
-        console.log("correct")
+        alert("correct");
+        console.log("correct");
     } else {
+        alert("incorrect");
+        setTimeout(() => {
+            timer -= 10;
+            if (timer <= 0) {
+                timer = 0
+            }
+            endGame()
+        })
         console.log("incorrect");
     }
 
@@ -112,7 +121,53 @@ function checkAnswer(event) {
     nextQuestion();
 }
 
-// Add event listener to start quiz
+//end game
+const endGame = () => {
+    displayScorecard();
+    $("#nameSubmit").on("click", handleImputSubmit);
+}
 
+//show player score
+const displayScorecard = () => {
+    $(".quiz").hide();
+    $(".scores").hide();
+    $(".time").hide();
+
+    $(".score_card").html(
+        `<div class="card score">
+        <h1 class="title text-white text-center pt-5 pb-3 pl-4 pr-4">Quiz Scorecard</h1>
+        <div class="card-header">
+          <p class="result py-4">Score: ${gameTime}</p>
+        </div>
+        <ul class="list-group list-group-horizontal">
+          <li class="list-group-item">${wrong}</li>
+          <li class="list-group-item">${correct}</li>
+          <li class="list-group-item">${(correct / total * 100).toFixed(0)}%</li>
+        </ul>
+      </div>
+      <div class="input-group mt-5">
+        <input type="text" class="form-control player" placeholder="Initials" aria-label="Username" aria-describedby="basic-addon1">
+        <div class="input-group-append">
+          <button class="btn btn-outline-success" type="button" id="nameSubmit">Submit</button>
+        </div>
+      </div>`); 
+            
+            
+}
+
+// Save players score to LocalStorage
+const saveToLocalStorage = (player) => {
+    if (localStorage.getItem('players') === null) {
+        const players = [];
+        players.push(player);
+        localStorage.setItem('players', JSON.stringify(players));
+    } else{
+        const players = JSON.parse(localStorage.getItem('players'));
+        players.push(player);
+        localStorage.setItem('players', JSON.stringify(players));
+    } 
+ }
+// Add event listener to start quiz
+startBtn.addEventListener("click", startQuiz)
 // Call function to show opening page 
 openingPage();
